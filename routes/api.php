@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/user/register','UserController@register');
 Route::post('/user/login','UserController@login');
+Route::get('/customers/averageAge','CustomerController@averageAge');
 Route::resource('/customers','CustomerController');

@@ -24,6 +24,21 @@ class CustomerController extends Controller
     	return response()->json(array('customer' =>$customer,'status' => 'success'), 200);
     }
 
+    public function averageAge(Request $request){
+    	$customers = Customer::all()->toArray();
+    	$average = 0;
+    	$ncustomers =  count($customers);
+    	if ($ncustomers > 0) {
+			foreach ($customers as $customer) {
+				$average+=$customer['age'];
+			}
+			$average = $average / $ncustomers;
+			$average = number_format($average, 2);
+    	}
+
+    	return response()->json(array('average_age' =>$average,'status'=>'success' ),200);
+    }
+
     public function store(Request $request){
     	$hash = $request->header('Authorization', null);
     	$jwtAuth = new JwtAuth();
