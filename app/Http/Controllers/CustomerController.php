@@ -26,17 +26,27 @@ class CustomerController extends Controller
 
     public function averageAge(Request $request){
     	$customers = Customer::all()->toArray();
-    	$average = 0;
-    	$ncustomers =  count($customers);
-    	if ($ncustomers > 0) {
-			foreach ($customers as $customer) {
-				$average+=$customer['age'];
-			}
-			$average = $average / $ncustomers;
-			$average = number_format($average, 2);
-    	}
-
+    	$average = $this->_getAverage($customers);
+    	$average = number_format($average, 2);
     	return response()->json(array('average_age' =>$average,'status'=>'success' ),200);
+    }
+
+    public function standardDeviationAge(Request $request){
+    	$customers = Customer::all()->toArray();
+    	$average = $this->_getAverage($customers);
+    	$ncustomers =  count($customers);
+    	$variance= 0;
+    	$standardDeviation = 0;
+    	if ($ncustomers > 0) {
+			$sumSquare=0;
+			foreach ($customers as $customer) {
+				$sumSquare+=pow($customer['age'] - $average,2);
+			}
+			$variance = $sumSquare / $ncustomers;
+			$standardDeviation = sqrt($variance);
+			$standardDeviation = number_format($standardDeviation, 2);
+    	}
+    	return response()->json(array('standard_deviation_age' =>$standardDeviation,'status'=>'success' ),200);
     }
 
     public function store(Request $request){
@@ -61,7 +71,6 @@ class CustomerController extends Controller
     		if ($validate->fails()) {
     			return response()->json($validate->errors(), 400);
     		}		
-		
 
     		$customer = new Customer();
     		$customer->name =$params->name;
@@ -86,5 +95,17 @@ class CustomerController extends Controller
 
     	return response()->json($data, 200);
 
+    }
+
+    private function _getAverage($data){
+    	$average = 0;
+    	$ndata =  count($data);
+    	if ($ndata > 0) {
+	    	foreach ($data as $item) {
+	    		$average+=$item['age'];
+	    	}
+	    	$average = $average / $ndata;   		
+    	}
+    	return $average;
     }
 }
