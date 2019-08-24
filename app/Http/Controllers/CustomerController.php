@@ -19,6 +19,11 @@ class CustomerController extends Controller
     	), 200);
     }
 
+    public function show($id){
+    	$customer = Customer::find($id);
+    	return response()->json(array('customer' =>$customer,'status' => 'success'), 200);
+    }
+
     public function store(Request $request){
     	$hash = $request->header('Authorization', null);
     	$jwtAuth = new JwtAuth();
