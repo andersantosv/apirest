@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/user/register','UserController@register');
 Route::post('/user/login','UserController@login');
-Route::get('/customers/averageAge','CustomerController@averageAge');
-Route::get('/customers/standardDeviationAge','CustomerController@standardDeviationAge');
-Route::get('/customers/expectancyLife','CustomerController@expectancyLife');
+Route::get('/customers/average-age','CustomerController@averageAge');
+Route::get('/customers/standard-deviation-age','CustomerController@standardDeviationAge');
+Route::get('/customers/expectancy-life','CustomerController@expectancyLife');
 Route::resource('/customers','CustomerController');
