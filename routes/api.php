@@ -21,4 +21,5 @@ Route::post('/user/register','UserController@register');
 Route::post('/user/login','UserController@login');
 Route::get('/customers/averageAge','CustomerController@averageAge');
 Route::get('/customers/standardDeviationAge','CustomerController@standardDeviationAge');
+Route::get('/customers/expectancyLife','CustomerController@expectancyLife');
 Route::resource('/customers','CustomerController');

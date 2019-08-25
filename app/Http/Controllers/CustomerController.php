@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Helpers\JwtAuth;
 use App\Customer;
+use App\ExpectancyLife;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -37,6 +39,7 @@ class CustomerController extends Controller
     	$ncustomers =  count($customers);
     	$variance= 0;
     	$standardDeviation = 0;
+
     	if ($ncustomers > 0) {
 			$sumSquare=0;
 			foreach ($customers as $customer) {
@@ -47,6 +50,32 @@ class CustomerController extends Controller
 			$standardDeviation = number_format($standardDeviation, 2);
     	}
     	return response()->json(array('standard_deviation_age' =>$standardDeviation,'status'=>'success' ),200);
+    }
+
+    public function expectancyLife(){
+    	$customers = Customer::all()->toArray();
+    	$expectancyLife = ExpectancyLife::all()->toArray();
+    	$listCustomer = [];
+    	foreach ($customers as $customer) {
+    		$date = Carbon::now();
+    		$key = array_search($customer['age'], array_column($expectancyLife, 'age'));
+    		if (!is_null($key)) {
+    			$years = $expectancyLife[$key]['expectancy'];
+    			$deathday = $date->addYear($years); 
+    			$deathday = $deathday->format('Y-m-d');
+    		}else{
+    			$deathday = 'Inmortal';
+    		}
+    		$listCustomer[] = array(
+    			'name' => $customer['name'],
+    			'last_name' => $customer['last_name'],
+    			'age' => $customer['age'],
+    			'birthday' => $customer['birthday'],
+    			'deathday' => $deathday
+    		);
+
+    	}
+    	return response()->json(array('customers' =>$listCustomer,'status'=>'success' ),200);
     }
 
     public function store(Request $request){
@@ -108,4 +137,5 @@ class CustomerController extends Controller
     	}
     	return $average;
     }
+
 }
