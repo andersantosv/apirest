@@ -34,7 +34,7 @@ class UserController extends Controller
 			$user->status = $status;
 
 			$isset_user = User::where('email','=',$email)->first();
-			if (count($isset_user) == 0) {
+			if (!$isset_user) {
 				$user->save();
 				$estado = 'success';
 				$code = 200;

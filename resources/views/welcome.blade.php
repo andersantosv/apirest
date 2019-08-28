@@ -79,15 +79,15 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    MICROSERVICIO
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="http://sanderss.com/api/customers">CUSTOMERS</a>
+                    <a href="http://sanderss.com/api/customers/average-age">AVERAGE AGE</a>
+                    <a href="http://sanderss.com/api/customers/standard-deviation-age">STANDARD DEVIATION AGE</a>
+                    <a href="http://sanderss.com/api/customers/expectancy-life">EXPECTANCY LIFE</a>
+                    <a href="https://github.com/andersantosv/apirest">GitHub</a>
                 </div>
             </div>
         </div>
